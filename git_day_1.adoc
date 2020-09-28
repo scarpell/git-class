@@ -40,6 +40,9 @@ _set up a quick series of linear commits_
 ** *Technically* - just a pointer
 ** *Conceptually* - a series of commits starting from a given point in history
 ** Super lightweight and easy to make and move
+** branch naming conventions - lowercase first word, unique, and no backslashes
+* *Q*: Why might we want to use branches, _even locally_ in a repository?
+* *A*: Branches are a great way to group code into features, reserve working state, and work on different things as needed.
 ** Describe use cases
 *** Sharing code
 *** Distributed work
