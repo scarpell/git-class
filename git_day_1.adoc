@@ -1,23 +1,21 @@
-Git Gud Speaker Outline - Day 1
--------------------------------
+= Git Gud Speaker Outline - Day 1
 :hardbreaks:
 
-The Basics
-~~~~~~~~~~
+== Overview
 The goal of this presentation is to give you an understanding of how *local* git works, and will not extensively
 cover the syntax and associated _how to_ around using git. Specific syntax questions can be resolved at the end
 of the presentation or via google.
 
-Understand Your Audience
-~~~~~~~~~~~~~~~~~~~~~~~~
+== Understand Your Audience
 * Is there anyone that doesn't know git?
 * If you were on a client site, would you be comfortable teaching them about git?
 * What type of team environment did you use git in? Solo? Small Team? Army?
 
-Commits
-^^^^^^^
+== The Basics of Git
+
+=== Commits
 * *Q*:What is a commit?
-** author, date, message, hash, parent
+** author, date, message, hash, parent, delta/diff from parent
 * The importance of commit messages
 ** Without a message, it's not a commit
 ** Not too much, but enough to remind of whats been done
@@ -28,7 +26,7 @@ Commits
 ** Creates a traversable linked list series of traversable changes
 * *Q*:Why are commits immutable?
 ** Commits as cattle, not pets
-** History as something that shouldn't be changed
+** History as something that shouldn't be changed unless there are valid reasons
 * Commits are the *atomic unit* in git
 
 *DEMO STARTS HERE*
@@ -37,8 +35,7 @@ Commits
 *DEMO*
 _set up a quick series of linear commits_
 
-Branches
-^^^^^^^^
+=== Branches
 * *Q*: Can anyone tell me, technically or conceptually, what a branch is?
 ** *Technically* - just a pointer
 ** *Conceptually* - a series of commits starting from a given point in history
@@ -49,7 +46,7 @@ Branches
 *** etc.
 
 *DEMO*
-_perform git branch feature_
+_simulate git branch feature_
 
 * *Q*: What will happen at this point when I commit?
 * *A*: Master will update, feature will stay
@@ -85,8 +82,7 @@ Possible Checkpoint exercises:
 * what does git checkout HEAD~2 mean?
 * walk through how all the references move after _git checkout -b_
 
-Merging Branches
-~~~~~~~~~~~~~~~~
+== Merging Branches
 * *Q*: Can anyone tell me what 'merging branches' means in git, and why we might want to do it?
 * *A*: Merging branches is the action of combining any two branches from a single source repository in git
 * Why?
@@ -99,16 +95,15 @@ Merging Branches
 ** non-fast-forward without conflicts
 ** non-fast-forward with conflicts
 
-Fast-Forward Merges
-+++++++++++++++++++
+=== Fast-Forward Merges
 *DEMO*
 _make a new branch off master and add some commits_
 
 * walk through the actions of merging the new branch into master
 * a FF commit can be summarized as simply moving the pointer of the current branch to the latest commit
+* if you think of a commit tree as a timeline, this is like going forward in time (AKA "fast-forward")
 
-Non Fast-Forward Merge
-++++++++++++++++++++++
+=== Non Fast-Forward Merge
 *DEMO*
 _make a new branch off master and add some commits_
 _go back to master and add some commits_
@@ -116,8 +111,7 @@ _go back to master and add some commits_
 * walk through the actions of merging the new branch int master
 * a non-FF commit will create a intermediary merge commit and point HEAD and your current branc pointer to that
 
-Non Fast-Forward Merge w/ Conflicts
-+++++++++++++++++++++++++++++++++++
+=== Non Fast-Forward Merge w/ Conflicts
 * logically, git is trying to perform the same actions as with a non-FF merge
 * *Q*: Does anyone know how git defines a conflict?
 * *A*: A conflict is when two files of the same name in the same directory location have different changes on the same line
@@ -128,8 +122,7 @@ Non Fast-Forward Merge w/ Conflicts
 
 *Checkpoint*: Make sure everyone understands what is happening when brances are merging, and why conflicts might arise.
 
-RECAP
-~~~~~
+== RECAP
 * What is a commit?
 * What is a branch?
 * What is HEAD?
