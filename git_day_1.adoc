@@ -1,0 +1,134 @@
+= Git Gud Speaker Outline - Day 1
+:hardbreaks:
+
+== Overview
+The goal of this presentation is to give you an understanding of how *local* git works, and will not extensively
+cover the syntax and associated _how to_ around using git. Specific syntax questions can be resolved at the end
+of the presentation or via google.
+
+== Understand Your Audience
+* Is there anyone that doesn't know git?
+* If you were on a client site, would you be comfortable teaching them about git?
+* What type of team environment did you use git in? Solo? Small Team? Large organization?
+
+== The Basics of Git
+
+=== Commits
+* *Q*:What is a commit?
+** author, date, message, hash, parent, delta/diff from parent
+* The importance of commit messages
+** Without a message, it's not a commit
+** Not too much, but enough to remind of whats been done
+* *Q*:What's the use of the hash?
+** Easily made unique identifier of a given set of changes
+* *Q*:What is the importance of the parent?
+** Tracks the list of previous changes
+** Creates a traversable linked list series of traversable changes
+* *Q*:Why are commits immutable?
+** Commits as cattle, not pets
+** History as something that shouldn't be changed unless there are valid reasons
+* Commits are the *atomic unit* in git
+
+*DEMO STARTS HERE*
+(whiteboard or link:asciidoc[https://git-school.github.io/visualizing-git/])
+
+*DEMO*
+_set up a quick series of linear commits_
+
+=== Branches
+* *Q*: Can anyone tell me, technically or conceptually, what a branch is?
+** *Technically* - just a pointer
+** *Conceptually* - a series of commits starting from a given point in history
+** Super lightweight and easy to make and move
+** branch naming conventions - lowercase first word, unique, and no backslashes
+* *Q*: Why might we want to use branches, _even locally_ in a repository?
+* *A*: Branches are a great way to group code into features, reserve working state, and work on different things as needed.
+** Describe use cases
+*** Sharing code
+*** Distributed work
+*** etc.
+
+*DEMO*
+_simulate git branch feature_
+
+* *Q*: What will happen at this point when I commit?
+* *A*: Master will update, feature will stay
+* Cover the difference between _git checkout -b_ and _git_checkout_
+* Introduce the special *HEAD* pointer
+** tracks your current location in git
+** a pointer to a pointer
+* Has anyone ever seen/heard of detached head?
+** detached head means that your current HEAD pointer is not currently pointed at a branch
+* *Q*: Anyone have ideas about why you might end up in this state?
+** checking out a specific commit via HASH
+** checking out with the *~*
+
+*DEMO*
+_check out a random unnamed commit, make a new commit in the detached HEAD state_
+
+* *Q*: If head is on the commit, how do I get back to master
+* *A*: git checkout master
+* *Q*: How do I get to my previous commit?
+* *A*: Git reflog
+
+*DEMO*
+_go back to the previous detached HEAD state, and set HEAD to the unmarked branch_
+
+* *Q*: How do we preserve the changes that we've made prior to going back to master?
+* *A*: git branch _<branch_name>_
+
+*Checkpoint*: Check for understanding, and make sure the group understands all that's been covered
+
+Possible Checkpoint exercises:
+
+* walk through how all the pointers move after creating a commit
+* what does git checkout HEAD~2 mean?
+* walk through how all the references move after _git checkout -b_
+
+== Merging Branches
+* *Q*: Can anyone tell me what 'merging branches' means in git, and why we might want to do it?
+* *A*: Merging branches is the action of combining any two branches from a single source repository in git
+* Why?
+** updating local code with 'upstream' changes
+** combining work of multiple individuals
+* a _merge_ in git takes one argument, the branch you want to bring in
+* git assumes your current branch is the target of the merge
+* Three different types of merges
+** fast-forward
+** non-fast-forward without conflicts
+** non-fast-forward with conflicts
+
+=== Fast-Forward Merges
+*DEMO*
+_make a new branch off master and add some commits_
+
+* walk through the actions of merging the new branch into master
+* a FF commit can be summarized as simply moving the pointer of the current branch to the latest commit
+* if you think of a commit tree as a timeline, this is like going forward in time (AKA "fast-forward")
+
+=== Non Fast-Forward Merge
+*DEMO*
+_make a new branch off master and add some commits_
+_go back to master and add some commits_
+
+* walk through the actions of merging the new branch int master
+* a non-FF commit will create a intermediary merge commit and point HEAD and your current branc pointer to that
+
+=== Non Fast-Forward Merge w/ Conflicts
+* logically, git is trying to perform the same actions as with a non-FF merge
+* *Q*: Does anyone know how git defines a conflict?
+* *A*: A conflict is when two files of the same name in the same directory location have different changes on the same line
+* git does not take into account file context at all
+* conflict resolution _mostly_ falls on the hands of the person looking to update their code
+* frequent conflicts when working are usually a symptom of larger interpersonal or management issues around work
+
+
+*Checkpoint*: Make sure everyone understands what is happening when brances are merging, and why conflicts might arise.
+
+== RECAP
+* What is a commit?
+* What is a branch?
+* What is HEAD?
+* What does _detached HEAD_ mean? How do we fix it?
+* What is a conflict?
+* Any other outstanding questions around local git?
