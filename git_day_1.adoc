@@ -9,7 +9,7 @@ of the presentation or via google.
 == Understand Your Audience
 * Is there anyone that doesn't know git?
 * If you were on a client site, would you be comfortable teaching them about git?
-* What type of team environment did you use git in? Solo? Small Team? Army?
+* What type of team environment did you use git in? Solo? Small Team? Large organization?
 
 == The Basics of Git
 
