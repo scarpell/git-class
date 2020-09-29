@@ -9,7 +9,7 @@ end of the presentation.
 
 === Day 1 Review questions
 * What is in a commit?
-** author, date, message, hash, diff
+** author, date, message, hash, diff/delta
 * What is stored when you create a commit?
 ** pointer to parent, and delta of change
 * How do you create a new branch?
@@ -31,9 +31,9 @@ end of the presentation.
 * *A*: A pointer to a server that also hosts the repository
 ** a remote represents a server
 ** mostly just contains a server url and name
-* *Q*: Aside from the url, are there any differences between the contents of the remote vs the contents on your machine?
+* *Q*: Assuming you have no new local changes, will the contents of the remote differ from the contents on your machine?
 * *A*: The server contains exactly the same content as your local copy of the repository, with a handful of exceptions you specify in the _.gitignore_
-* git is a _Distributed Version Control System_ or DVCS, so it mirrors all contents of the remote to your computer
+* git is a _Distributed Version Control System_ or DVCS, so it mirrors the content of the repository to your computer
 * super handy since if you lose git for some reason, you can still do everything locally
 
 *DEMO STARTS HERE*
@@ -76,9 +76,11 @@ _set up a remote with upstream changes_
 * remote tracking branches do exactly what their name implies
 ** break down the naming convention around remote tracking branches
 * fetch doesn't change anything
-* check out a remote tracking branch
+
+_check out a remote tracking branch_
+
 * *Q*: What will happen when we commit here?
-* *A*: Nothing - currently in detached head.
+* *A*: The remote tracking branch won't track the commits - currently in detached head.
 ** if you were able to directly commit to a remote tracking branch, the remote tracking branch would no longer track the remote
 * *Q*: How do we update our local branch? Hint: think of the remote tracking branch just as another branch.
 * *A*: *git merge* _<branch_name>_
@@ -88,8 +90,8 @@ _set up a remote with upstream changes_
 * *Q*: If our local has no no reference to the upstream branch, how do we get changes?
 * *A*: fetch the upstream first, and then check out the branch name
 ** *NOTE*: git visualizer won't do this correctly
-** fetching first is important, since otherwise you won't get all the commits
-* git forces you to always pull before pushing
+* pulling first is important, since otherwise you won't get all the commits
+** if you try to push and your branch doesn't have the same contents on the remote, git will reject the action
 
 *Checkpoint*: Questions?
 
@@ -102,8 +104,7 @@ _set up a remote with upstream changes_
 
 == The greater Git workflow
 * *Q*: Why might we want multiple remotes?
-* *A*: Git, as in the program, does not itself enforce permissions. It is strictly file management software.
-* Git isn't itself secure
+** git isn't meant to be "secure"
 ** Anyone can push, pull, etc
 * Github enforces a permissions model
 ** this ironically conflicts with open source principles
@@ -115,6 +116,7 @@ _set up a remote with upstream changes_
 == Recap
 * Remotes represent a server that you synchronize with your local repository
 ** the source repository is usually referred to as *origin*
+** remote tracking branches are used to track the state of a branch on a remote, and take the form '<remote_name>/<branch_name>'
 * *git push* to send changes to remotes
 * *git pull* to get changes from a remote
 ** git pull as a fetch + merge
@@ -123,6 +125,7 @@ _set up a remote with upstream changes_
 
 == Review Exercises
 https://github.com/git-game/git-game[The Git Game]
+https://sethrobertson.github.io/GitFixUm/fixup.html[A simple git adventure]
 
 == Useful Links
 https://git-scm.com/book/ru/v2[Git Pro Book]
