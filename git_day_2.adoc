@@ -1,0 +1,132 @@
+= Git Gud Speaker Outline - Day 2
+:hardbreaks:
+
+== Overview
+The goal of this presentation is to give a broader understanding of how git works as a distributed
+version control system, especially with respect to remotes and their importance. Again, this presentation
+is geared around presenting the theory, and practical application questions should wait until the 
+end of the presentation.
+
+=== Day 1 Review questions
+* What is in a commit?
+** author, date, message, hash, diff/delta
+* What is stored when you create a commit?
+** pointer to parent, and delta of change
+* How do you create a new branch?
+* What is HEAD, and what does it represent?
+* What is a *detached HEAD* state, and how do you fix it?
+** git branch _<branch_name>_, git checkout _<branch_name>_
+** git checkout -b _<branch_name>_
+* What does *git checkout HEAD~2* do?
+* Walk me through the process of merging _branch_a_ into _branch_b_
+* If you have two commits with identical file changes, message, author, and date, are they the same commit?
+** No, hash will differ
+
+== Understand Your Audience
+* Has anyone here worked with remotes before?
+** ^^ rhetorical question, *everyone* that has worked with git has used remotes
+
+== Working with Remotes
+* *Q*: Can anyone tell me what a remote is?
+* *A*: A pointer to a server that also hosts the repository
+** a remote represents a server
+** mostly just contains a server url and name
+* *Q*: Assuming you have no new local changes, will the contents of the remote differ from the contents on your machine?
+* *A*: The server contains exactly the same content as your local copy of the repository, with a handful of exceptions you specify in the _.gitignore_
+* git is a _Distributed Version Control System_ or DVCS, so it mirrors the content of the repository to your computer
+* super handy since if you lose git for some reason, you can still do everything locally
+
+*DEMO STARTS HERE*
+(whiteboard or link:asciidoc[https://git-school.github.io/visualizing-git/])
+*Instructor Note*: Demo notes only specify setup from now on. Just make sure to walk through steps as you go, and answer questions as needed.
+
+
+*DEMO*
+_set up a local and remote repo, with one commit each_
+
+=== Adding a remote
+* git remote add <remote_name> <url>
+** Typically, the primary source repository for your codebase is referred to as *origin*
+** other remote names are arbitrary
+* this doesn't get used _that_ much
+
+*DEMO*
+_set up a couple of commits on the local branch_
+
+=== Sending changes to remotes
+* *git push* to send local changes to a remote
+** git push can take a _remote_ and _branch name_ as arguments
+** git push --set-upstream _remote_ _<branch_name>_ will set the current branch to track the branch in the remote
+** *-u* is an alias for _--set-upstream_
+** after setting an upstream, just *git_push* works
+* all commits are local until you push to the remote
+* a remote acts as a backup repository, so commit and push often
+* *Q*: What is _git push -u company 1234_feature_ doing?
+** setting the upstream of branch _1234_feature_
+** pushing the branch to the remote called _company_
+
+*DEMO*
+_set up a remote with upstream changes_
+
+* *Q*: Does anyone know how we might get the changes from our remote to our local machine?
+* *A*: *git pull* <remote> <branch>
+* if you've set your upstream, just *git pull* will work
+* *Q*: Has anyone used *git fetch*? If so, explain what it does.
+* *A*: Gets all the changes from a remote, and updates the _remote tracking branches_
+* remote tracking branches do exactly what their name implies
+** break down the naming convention around remote tracking branches
+* fetch doesn't change anything
+
+_check out a remote tracking branch_
+
+* *Q*: What will happen when we commit here?
+* *A*: The remote tracking branch won't track the commits - currently in detached head.
+** if you were able to directly commit to a remote tracking branch, the remote tracking branch would no longer track the remote
+* *Q*: How do we update our local branch? Hint: think of the remote tracking branch just as another branch.
+* *A*: *git merge* _<branch_name>_
+* git pull as a combination of fetch and merge
+* *Q*: What's the difference between _origin/feature_ and _origin feature_?
+* *A*: They're apples and oranges. One is a single branch reference, the other is a remote + branch name.
+* *Q*: If our local has no no reference to the upstream branch, how do we get changes?
+* *A*: fetch the upstream first, and then check out the branch name
+** *NOTE*: git visualizer won't do this correctly
+* pulling first is important, since otherwise you won't get all the commits
+** if you try to push and your branch doesn't have the same contents on the remote, git will reject the action
+
+*Checkpoint*: Questions?
+
+*Possible Review Questions*
+
+* *Q*: How does git know which remote to push to?
+* *A*: Each git branch has a reference back to it's source remote, which is what it will push to
+* Walk me through exactly what commands git pull _feature_ does.
+* What does *-u* do with git push, and why is it important?
+
+== The greater Git workflow
+* *Q*: Why might we want multiple remotes?
+** git isn't meant to be "secure"
+** Anyone can push, pull, etc
+* Github enforces a permissions model
+** this ironically conflicts with open source principles
+** if random people can't commit, then how do you bring in external changes?
+* Forking allows anyone to work on code
+* Pull Request/Merge Requests to integrate code back in
+* Walk through the pull request process, and cover its importance
+
+== Recap
+* Remotes represent a server that you synchronize with your local repository
+** the source repository is usually referred to as *origin*
+** remote tracking branches are used to track the state of a branch on a remote, and take the form '<remote_name>/<branch_name>'
+* *git push* to send changes to remotes
+* *git pull* to get changes from a remote
+** git pull as a fetch + merge
+* Larger projects use pull requests to manage user permissions and code quality
+* fork copies to your local repository to work on
+
+== Review Exercises
+https://github.com/git-game/git-game[The Git Game]
+https://sethrobertson.github.io/GitFixUm/fixup.html[A simple git adventure]
+
+== Useful Links
+https://git-scm.com/book/ru/v2[Git Pro Book]
+
